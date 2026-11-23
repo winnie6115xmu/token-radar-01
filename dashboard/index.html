@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Launch Radar</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <h1>Token Launch Radar</h1>
+    <p class="tagline">Pre-token protocols, ranked by what their launch would be worth — with the steps to farm each one.</p>
+    <p class="meta" id="meta"></p>
+    <div class="stats" id="stats"></div>
+  </div>
+</header>
+
+<main>
+  <section class="card model-card">
+    <h2>How the value is scored</h2>
+    <p class="formula">implied value = TVL × sector multiple × chain multiplier × growth multiplier × maturity multiplier</p>
+    <p>Every factor comes from the snapshot's own figures. No protocol name is special-cased.</p>
+    <table class="sectors">
+      <thead><tr><th>Sector</th><th>Multiple</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>DEX / Derivatives / Perpetuals</td><td>0.35</td><td>Trading venues earn the most per dollar locked</td></tr>
+        <tr><td>Lending / CDP</td><td>0.30</td><td>Steady interest income on deposits</td></tr>
+        <tr><td>RWA</td><td>0.28</td><td>Real-world yield, growing fast</td></tr>
+        <tr><td>Yield / Leveraged farming</td><td>0.25</td><td>Baseline DeFi yield</td></tr>
+        <tr><td>Staking / Restaking</td><td>0.20</td><td>Thin margins on staked assets</td></tr>
+        <tr><td>Bridge</td><td>0.15</td><td>Low fees per dollar moved</td></tr>
+        <tr><td>Other</td><td>0.25</td><td>Baseline</td></tr>
+      </tbody>
+    </table>
+    <p class="fine">Chain multiplier: 1.00 on one chain, +0.05 per extra chain (max 1.20). Growth: 7-day TVL change, clamped to −50%…+150%, weighted 0.6. Maturity: 0.70 for a new protocol, rising to 1.00 after two years with no token.</p>
+  </section>
+
+  <section class="card controls">
+    <div class="view-toggle">
+      <button id="view-board" class="toggle active" type="button">Board</button>
+      <button id="view-live" class="toggle" type="button">Live tokens</button>
+    </div>
+    <div class="filters">
+      <input id="q" type="search" placeholder="Search a protocol…" aria-label="Search protocols">
+      <select id="category" aria-label="Filter by category"><option value="">All categories</option></select>
+      <select id="chain" aria-label="Filter by chain"><option value="">All chains</option></select>
+      <select id="sort" aria-label="Sort the board">
+        <option value="rank">Sort: rank</option>
+        <option value="implied">Sort: implied value</option>
+        <option value="tvl">Sort: TVL</option>
+        <option value="growth">Sort: 7-day growth</option>
+        <option value="age">Sort: age</option>
+        <option value="name">Sort: name A–Z</option>
+      </select>
+    </div>
+    <p class="count" id="count"></p>
+  </section>
+
+  <section class="card" id="board-section">
+    <table class="board">
+      <thead>
+        <tr><th class="num">#</th><th>Protocol</th><th>Category</th><th>Chains</th><th class="num">TVL</th><th class="num">7d</th><th class="num">Age</th><th class="num">Implied value</th></tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="hint">Click a row for its detail view and farm plan.</p>
+  </section>
+
+  <section class="card detail" id="detail" hidden></section>
+
+  <section class="card" id="live-section" hidden>
+    <h2>Live tokens</h2>
+    <p>These protocols already trade a token, so the board shows the market's own value — not a model estimate. They are set apart from the ranked board.</p>
+    <table class="board">
+      <thead>
+        <tr><th>Protocol</th><th>Category</th><th>Chains</th><th class="num">TVL</th><th class="num">Market cap</th><th class="num">7d</th></tr>
+      </thead>
+      <tbody id="live-rows"></tbody>
+    </table>
+  </section>
+</main>
+
+<footer>
+  <p>Data: DefiLlama protocol snapshot, fetched 2026-11-14. A protocol is listed as pre-token when its DefiLlama record carries no token; the record is not proof that no token exists.</p>
+  <p>Implied values are this entry's own estimates from the snapshot's figures, not predictions of whether or when a token is issued, and not investment advice.</p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
