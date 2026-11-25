@@ -22,8 +22,9 @@
     return '$' + n;
   }
   function pct(n) {
+    // change_7d is already in per cent (e.g. 26.3 means +26.3%), not a fraction.
     if (n === null || n === undefined) return '—';
-    var v = (n * 100).toFixed(1) + '%';
+    var v = n.toFixed(1) + '%';
     return n > 0 ? '+' + v : v;
   }
   function pctClass(n) {
